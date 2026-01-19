@@ -6,10 +6,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { PasswordField } from "../../shared/components/password-field/password-field";
 import { MatInput } from '@angular/material/input';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgIf } from "../../../../node_modules/@angular/common/types/_common_module-chunk";
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, MatCardModule, MatButtonModule, MatInput, MatFormFieldModule, MatSelectModule, PasswordField],
+  imports: [ReactiveFormsModule, MatCardModule, MatButtonModule, MatInput, MatFormFieldModule, MatSelectModule, PasswordField, NgIf],
   templateUrl: './register.html',
   styleUrl: './register.scss',
   encapsulation: ViewEncapsulation.None
@@ -36,7 +37,7 @@ export class Register {
 
     console.log("Formulário submetido", this.form.value)
   }
-  
+
   get fullName() {
     return this.form.get('fullName');
   }
