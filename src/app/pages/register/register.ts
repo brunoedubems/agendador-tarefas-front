@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, signal, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -6,7 +6,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { PasswordField } from "../../shared/components/password-field/password-field";
 import { MatInput } from '@angular/material/input';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { validate } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-register',
@@ -29,7 +28,6 @@ export class Register {
     return this.form.get('password') as FormControl;
   }
 
-
   submit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -38,7 +36,15 @@ export class Register {
 
     console.log("Formulário submetido", this.form.value)
   }
-
+  
+  get fullName() {
+    return this.form.get('fullName');
+  }
+  
+  get email() {
+    return this.form.get('email');
+  }
+  
 
 }
 

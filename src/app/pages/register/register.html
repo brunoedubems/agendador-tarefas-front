@@ -7,18 +7,35 @@
             <form [formGroup]="form">
                 <mat-form-field appearance="fill" class="full-width">
                     <mat-label>Nome Completo</mat-label>
-                    <input matInput formControlName="fullName" placeholder="Digite seu nome completo">
+                    <input matInput formControlName="fullName" placeholder="Digite seu nome completo" />
+                    @if (fullName?.invalid && fullName?.touched) {
+                    @if (fullName?.errors?.['required']){
+                    <mat-error>O nome completo é obrigatório</mat-error> }
+                    @if (fullName?.errors?.['minlength']) {
+                    <mat-error>Cadastre um nome com mais de 3 letras</mat-error>
+                    }
+                    }
+
                 </mat-form-field>
                 <mat-form-field appearance="fill" class="full-width">
                     <mat-label>Email</mat-label>
                     <input formControlName="email" matInput placeholder="Digite seu email">
                 </mat-form-field>
+                    @if (email?.touched && email?.invalid) {
+                        @if (email?.errors?.['required']) {
+                          <mat-error>O email é obrigatório</mat-error>
+                        }
+                        @if (email?.errors?.['email']) {
+                          <mat-error>Email inválido</mat-error>
+                        }
+                    }
 
-                <input-password-field [control]="passwordControl" ></input-password-field>
+                <input-password-field [control]="passwordControl"></input-password-field>
             </form>
         </mat-card-content>
         <mat-card-actions>
-            <button matButton="elevated" (click)="submit()"[disabled]="form.invalid" class="full-width">Cadastrar</button>
+            <button matButton="elevated" (click)="submit()" [disabled]="form.invalid"
+                class="full-width">Cadastrar</button>
         </mat-card-actions>
     </mat-card>
 </div>
