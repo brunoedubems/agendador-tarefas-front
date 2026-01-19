@@ -32,7 +32,7 @@ export class Register {
 
   submit() {
     if (this.form.invalid) {
-      this.form.markAllAsTouched;
+      this.form.markAllAsTouched();
       return
     }
 
