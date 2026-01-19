@@ -6,11 +6,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { PasswordField } from "../../shared/components/password-field/password-field";
 import { MatInput } from '@angular/material/input';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgIf } from "../../../../node_modules/@angular/common/types/_common_module-chunk";
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, MatCardModule, MatButtonModule, MatInput, MatFormFieldModule, MatSelectModule, PasswordField, NgIf],
+  imports: [ReactiveFormsModule, MatCardModule, MatButtonModule, MatInput, MatFormFieldModule, MatSelectModule, PasswordField],
   templateUrl: './register.html',
   styleUrl: './register.scss',
   encapsulation: ViewEncapsulation.None
@@ -41,11 +40,23 @@ export class Register {
   get fullName() {
     return this.form.get('fullName');
   }
-  
+
   get email() {
     return this.form.get('email');
   }
-  
+
+  get fullNameErrors(): string | null {
+    const fullNameControl = this.form.get('fullName');
+    if (fullNameControl?.hasError('required')) return 'O nome completo é obrigatório.'
+    if (fullNameControl?.hasError('minlength')) return 'Cadastre um nome com mais de 3 letras'
+    return null
+  }
+  get emailErrors(): string | null {
+    const emailControl = this.form.get('email');
+    if (emailControl?.hasError('required')) return 'O email é obrigatório.'
+    if (emailControl?.hasError('email')) return 'O email é inválido.'
+    return null
+  }
 
 }
 
