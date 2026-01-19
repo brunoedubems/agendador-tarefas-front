@@ -4,25 +4,38 @@
             <mat-card-title>Cadastro de Usuário</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Nome Completo</mat-label>
-                <input matInput placeholder="Digite seu nome completo">
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Email</mat-label>
-                <input matInput placeholder="Digite seu email">
-            </mat-form-field>
-            <mat-form-field class="full-width">
-                <mat-label>Senha</mat-label>
-                <input matInput [type]="hide() ? 'password' : 'text'" placeholder="Digite sua senha" />
-                <button matIconButton matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide()">
-                    <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
+            <form [formGroup]="form">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Nome Completo</mat-label>
+                    <input matInput formControlName="fullName" placeholder="Digite seu nome completo" />
+                    <!-- @if (fullName?.invalid && fullName?.touched) {
+                    @if (fullName?.errors?.['required']){
+                    <mat-error>O nome completo é obrigatório</mat-error> }
+                    @if (fullName?.errors?.['minlength']) {
+                    <mat-error>Cadastre um nome com mais de 3 letras</mat-error>
+                   -->
+                    @if(fullNameErrors){
+                        <mat-error>{{fullNameErrors}}</mat-error>
+                    }
+                    
+
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Email</mat-label>
+                    <input formControlName="email" matInput placeholder="Digite seu email">
+                    <!-- <mat-error *ngIf="email?.errors?.['required']">O email é obrigatório</mat-error> -->
+                    @if (emailErrors) {
+                        <mat-error>{{emailErrors}}</mat-error>
+                    }
+
+                </mat-form-field>
+
+                <input-password-field [control]="passwordControl"></input-password-field>
+            </form>
         </mat-card-content>
         <mat-card-actions>
-            <button matButton="elevated" class="full-width">Cadastrar</button>
+            <button matButton="elevated" (click)="submit()" [disabled]="form.invalid"
+                class="full-width">Cadastrar</button>
         </mat-card-actions>
     </mat-card>
 </div>
